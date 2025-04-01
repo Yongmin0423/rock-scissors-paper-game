@@ -9,7 +9,7 @@ const Container = styled.div`
   width: 40%;
   height: 100%;
   img {
-    width: 50%;
+    width: 40%;
     aspect-ratio: 1/1;
   }
 `;
