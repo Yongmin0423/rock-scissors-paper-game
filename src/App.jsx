@@ -33,11 +33,11 @@ const choice = {
   },
   scissors: {
     name: "Scissors",
-    img: "public/img/scissors.png",
+    img: "/img/scissors.png",
   },
   paper: {
     name: "Paper",
-    img: "public/img/paper.png",
+    img: "/img/paper.png",
   },
 };
 
