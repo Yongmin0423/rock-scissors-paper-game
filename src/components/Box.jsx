@@ -14,13 +14,12 @@ const Container = styled.div`
   }
 `;
 
-function Box({ title, userSelect }) {
-  console.log("User", userSelect);
+function Box({ title, select }) {
   return (
     <>
       <Container>
         <h1>{title}</h1>
-        <img src={userSelect?.img || ""} />
+        <img src={select && select.img} />
         <p>result</p>
       </Container>
     </>

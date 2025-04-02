@@ -43,15 +43,24 @@ const choice = {
 
 function App() {
   const [userSelect, setUserSelect] = useState(null);
+  const [computerSelect, setComputerSelect] = useState(null);
 
   const playGame = (userChoice) => {
     setUserSelect(choice[userChoice]);
+    let computerChoice = randomChoice();
+    setComputerSelect(choice[computerChoice]);
   };
+
+  const randomChoice = () => {
+    const itemArray = Object.keys(choice);
+    return itemArray[Math.floor(Math.random() * itemArray.length)];
+  };
+
   return (
     <Wrap>
       <BoxContainer>
-        <Box title="You" userSelect={userSelect} />
-        <Box title="Computer" />
+        <Box title="You" select={userSelect} />
+        <Box title="Computer" select={computerSelect} />
       </BoxContainer>
       <BtnContainer>
         <button onClick={() => playGame("rock")}>Rock</button>
