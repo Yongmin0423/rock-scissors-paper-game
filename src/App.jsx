@@ -2,6 +2,7 @@
 import styled from "styled-components";
 import Box from "./components/Box";
 import { useState } from "react";
+import { motion } from "motion/react";
 
 const Wrap = styled.div`
   display: flex;
@@ -10,6 +11,7 @@ const Wrap = styled.div`
   align-items: center;
   box-sizing: border-box;
   width: 100vw;
+  height: 100vh;
 `;
 
 const BoxContainer = styled.div`
@@ -23,7 +25,11 @@ const BoxContainer = styled.div`
 const BtnContainer = styled.div`
   display: flex;
   gap: 20px;
-  margin-top: 20px;
+  margin-top: 100px;
+`;
+
+const Btn = styled(motion.button)`
+  font-size: 20px;
 `;
 
 const choice = {
@@ -44,11 +50,31 @@ const choice = {
 function App() {
   const [userSelect, setUserSelect] = useState(null);
   const [computerSelect, setComputerSelect] = useState(null);
+  const [userResult, setUserResult] = useState("");
+  const [computerResult, setComputerResult] = useState("");
+
+  const judgement = (user, computer) => {
+    if (user.name == computer.name) {
+      return "tie";
+    } else if (user.name === "Rock")
+      return computer.name === "Scissors" ? "win" : "lose";
+    else if (user.name === "Scissors")
+      return computer.name === "Paper" ? "win" : "lose";
+    else if (user.name === "Paper")
+      return computer.name === "Rock" ? "win" : "lose";
+  };
 
   const playGame = (userChoice) => {
     setUserSelect(choice[userChoice]);
-    let computerChoice = randomChoice();
+    const computerChoice = randomChoice();
     setComputerSelect(choice[computerChoice]);
+    let result = judgement(choice[userChoice], choice[computerChoice]);
+    setUserResult(result);
+    result === "tie"
+      ? setComputerResult("tie")
+      : result === "win"
+      ? setComputerResult("lose")
+      : setComputerResult("win");
   };
 
   const randomChoice = () => {
@@ -59,16 +85,15 @@ function App() {
   return (
     <Wrap>
       <BoxContainer>
-        <Box title="You" select={userSelect} />
-        <Box title="Computer" select={computerSelect} />
+        <Box title="You" select={userSelect} result={userResult} />
+        <Box title="Computer" select={computerSelect} result={computerResult} />
       </BoxContainer>
       <BtnContainer>
-        <button onClick={() => playGame("rock")}>Rock</button>
-        <button onClick={() => playGame("scissors")}>Scissors</button>
-        <button onClick={() => playGame("paper")}>Paper</button>
+        <Btn onClick={() => playGame("rock")}>Rock</Btn>
+        <Btn onClick={() => playGame("scissors")}>Scissors</Btn>
+        <Btn onClick={() => playGame("paper")}>Paper</Btn>
       </BtnContainer>
     </Wrap>
   );
 }
-
 export default App;
